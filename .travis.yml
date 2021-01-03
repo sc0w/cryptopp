@@ -165,7 +165,7 @@ jobs:
       arch: amd64
       compiler: clang
       env:
-        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch x86_64"
+        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch x86_64 -std=c++17"
         - BUILD_OS=osx
         - BUILD_MODE=all
     - name: Standard build (32-bit), Clang, OS X, amd64
@@ -174,7 +174,7 @@ jobs:
       arch: amd64
       compiler: clang
       env:
-        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386"
+        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386 -std=c++17"
         - BUILD_OS=osx
         - BUILD_MODE=all
     - name: Standard build (fat), Clang, OS X, amd64
@@ -183,7 +183,7 @@ jobs:
       arch: amd64
       compiler: clang
       env:
-        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386 -arch x86_64"
+        - CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386 -arch x86_64 -std=c++17"
         - BUILD_OS=osx
         - BUILD_MODE=osx-fat
     - name: Native build, Clang, OS X, amd64
@@ -626,13 +626,13 @@ script:
     elif [[ "$BUILD_MODE" == "pem" ]]; then
         bash TestScripts/cryptest-pem.sh
     elif [[ "$BUILD_MODE" == "osx-fat" ]]; then
-        CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386 -arch x86_64" make -j 2
+        CXXFLAGS="-DNDEBUG -g2 -O3 -arch i386 -arch x86_64 -std=c++17" make -j 2
         arch -i386 ./cryptest.exe v
         arch -i386 ./cryptest.exe tv all
         arch -x86_64 ./cryptest.exe v
         arch -x86_64 ./cryptest.exe tv all
     elif [[ "$BUILD_MODE" == "debug" ]]; then
-        CXXFLAGS="-DDEBUG -g2 -O1" make -j 2
+        CXXFLAGS="-DDEBUG -g2 -O1 -std=c++17" make -j 2
         ./cryptest.exe v
         ./cryptest.exe tv all
     else
